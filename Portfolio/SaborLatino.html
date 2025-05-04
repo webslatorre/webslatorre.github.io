@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Restaurante Sabor Latino</title>
+  <style>
+    :root {
+      --primary-color: #facc15;
+      --secondary-color: #1f2937;
+      --text-color: #374151;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background-color: #fff;
+      position: fixed;
+      width: 100%;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: bold;
+      color: var(--secondary-color);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .nav-links a {
+      color: var(--text-color);
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary-color);
+    }
+
+    .hero {
+      height: 100vh;
+      background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4');
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      color: #fff;
+    }
+
+    .hero-content {
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 2rem;
+      border-radius: 0.5rem;
+    }
+
+    .hero-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content p {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #fff;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #eab308;
+    }
+
+    .section {
+      padding: 4rem 2rem;
+      text-align: center;
+      
+    }
+
+    .menu {
+      background-color: #fff;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 3rem;
+      color: var(--secondary-color);
+      display: block;
+    }
+
+    .menu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .menu-item {
+      background-color: #f9fafb;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .menu-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .menu-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .menu-item-content {
+      padding: 1.5rem;
+    }
+
+    .menu-item h3 {
+      font-size: 1.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-item p {
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    .menu-item .price {
+      color: var(--primary-color);
+      font-weight: bold;
+    }
+
+    .reservations {
+      background-color: #f3f4f6;
+    }
+
+    .reservation-form {
+      max-width: 500px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 0.75rem;
+      border: 1px solid #d1d5db;
+      border-radius: 0.25rem;
+      font-size: 1rem;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.1);
+    }
+
+    footer {
+      background-color: var(--secondary-color);
+      color: #fff;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    footer p {
+      margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .hero-content h1 {
+        font-size: 2rem;
+      }
+
+      .hero-content p {
+        font-size: 1rem;
+      }
+    }
+
+    #platos, #bebidas, #postres {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2rem;
+    }
+
+    #platos .section-title,
+    #bebidas .section-title,
+    #postres .section-title {
+      grid-column: 1 / -1;
+      margin-bottom: 1.5rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="navbar-container">
+      <a href="#" class="logo">Sabor Latino</a>
+      <div class="nav-links">
+        <a href="#inicio">Inicio</a>
+        <a href="#menu">Menú</a>
+        <a href="#reservas">Reservas</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="inicio" class="hero">
+    <div class="hero-content">
+      <h1>Bienvenidos a Sabor Latino</h1>
+      <p>Disfruta de la auténtica cocina latina en un ambiente acogedor</p>
+      <a href="#reservas" class="btn-primary">Reservar Ahora</a>
+    </div>
+  </section>
+
+  <!-- Menú Section -->
+  <section id="menu" class="section menu">
+    <div class="container">
+      <h1 class="section-title">Nuestro Menú</h1>
+      <div class="menu-grid">
+        <section id="platos" class="section">
+          <!-- Plato 1 -->
+           <h2 class="section-title">Platos</h2>
+          <div class="menu-item">
+            <img src="https://th.bing.com/th/id/R.7be97c86f52e5a62024b5da090d81c06?rik=EPbbYS0k00hORA&pid=ImgRaw&r=0" alt="Ceviche">
+            <div class="menu-item-content">
+              <h3>Ceviche Peruano</h3>
+              <p>Pescado fresco marinado con limón, cilantro y ají, servido con maíz y camote.</p>
+              <p class="price">12.00€</p>
+            </div>
+          </div>
+          <!-- Plato 2 -->
+          <div class="menu-item">
+            <img src="https://th.bing.com/th/id/OIP.y-dXCFWoMM_DmNI5tfyiHgHaE8?rs=1&pid=ImgDetMain" alt="Tacos">
+            <div class="menu-item-content">
+              <h3>Tacos al Pastor</h3>
+              <p>Carne de cerdo marinada con piña, servida con cebolla y cilantro.</p>
+              <p class="price">10.00€</p>
+            </div>
+          </div>
+          <!-- Plato 3 -->
+          <div class="menu-item">
+            <img src="https://www.desidakaar.com/wp-content/uploads/2020/02/20130814-el-aripo-cafe-arepas.jpg" alt="Arepa">
+            <div class="menu-item-content">
+              <h3>Arepa Venezolana</h3>
+              <p>Arepa rellena de queso, aguacate y carne mechada.</p>
+              <p class="price">8.00€</p>
+            </div>
+          </div>
+          <!-- Plato 4 -->
+          <div class="menu-item">
+            <img src="https://cdn.aarp.net/content/dam/aarpe/es/home/cocina/recetas/info-12-2012/empanadas-colombianas-carne/_jcr_content/root/container_main/container_body_main/container_body1/container_body_cf/container_image/articlecontentfragment/cfimage.coreimg.50.932.jpeg/content/dam/aarp/food/recipes/2018/05/1140-colombian-empanadas-esp.jpg" alt="Empanadas">
+            <div class="menu-item-content">
+              <h3>Empanadas Colombianas</h3>
+              <p>Empanadas crujientes rellenas de carne molida, papa y especias, acompañadas de ají.</p>
+              <p class="price">6.50€</p>
+            </div>
+          </div>
+          <!-- Plato 5 -->
+          <div class="menu-item">
+            <img src="https://mui.today/__export/1601665196721/sites/mui/img/2020/10/02/bandeja-paisa-asados-la-80-1.jpg_1496905114.jpg" alt="Bandeja Paisa">
+            <div class="menu-item-content">
+              <h3>Bandeja Paisa</h3>
+              <p>Plato tradicional con frijoles, arroz, chicharrón, huevo, aguacate, chorizo y carne molida.</p>
+              <p class="price">15.00€</p>
+            </div>
+          </div>
+          <!-- Plato 6 -->
+          <div class="menu-item">
+            <img src="https://www.laguiadereus.com/wp-content/uploads/2018/04/Enchiladas-Suizas2.jpg" alt="Enchiladas">
+            <div class="menu-item-content">
+              <h3>Enchiladas Verdes</h3>
+              <p>Tortillas rellenas de pollo bañadas en salsa verde, con queso fresco y crema.</p>
+              <p class="price">11.00€</p>
+            </div>
+          </div>
+          <!-- Plato 7 -->
+          <div class="menu-item">
+            <img src="https://www.tastingtable.com/img/gallery/how-traditional-argentinean-asado-grilling-differs-from-other-styles/l-intro-1657139183.jpg" alt="Asado">
+            <div class="menu-item-content">
+              <h3>Asado Argentino</h3>
+              <p>Corte de carne a la parrilla servido con chimichurri y papas fritas.</p>
+              <p class="price">18.00€</p>
+            </div>
+          </div>
+          <!-- Plato 8 -->
+          <div class="menu-item">
+            <img src="https://www.dominicancooking.com/wp-content/uploads/how-to-make-sancocho-step-by-step-6.jpg" alt="Sancocho">
+            <div class="menu-item-content">
+              <h3>Sancocho Dominicano</h3>
+              <p>Sopa tradicional con pollo, yuca, plátano, maíz y especias, acompañada de arroz.</p>
+              <p class="price">9.50€</p>
+            </div>
+          </div>
+          <!-- Plato 9 -->
+          <div class="menu-item">
+            <img src="https://cdn.kiwilimon.com/recetaimagen/2806/25790.jpg" alt="Pupusas">
+            <div class="menu-item-content">
+              <h3>Pupusas Salvadoreñas</h3>
+              <p>Tortillas de maíz rellenas de queso y frijoles, servidas con curtido.</p>
+              <p class="price">7.00€</p>
+            </div>
+          </div>
+          <!-- Plato 10 -->
+          <div class="menu-item">
+            <img src="https://enjoymo.net/wp-content/uploads/2022/02/4ed6350b918b263b983c5d8269a9e4e8_xl.jpg" alt="Churrasco">
+            <div class="menu-item-content">
+              <h3>Churrasco Ecuatoriano</h3>
+              <p>Carne de res a la parrilla con chimichurri, arroz, papas y ensalada.</p>
+              <p class="price">16.00€</p>
+            </div>
+          </div>
+        </section>
+        <section id="bebidas" class="section">
+          <h2 class="section-title">Bebidas</h2>
+          <!-- Bebida 1 -->
+          <div class="menu-item">
+            <img src="https://www.losvinos.com.ar/wp-content/uploads/2020/09/agua-de-horchata.jpg" alt="Agua Fresca">
+            <div class="menu-item-content">
+              <h3>Agua Fresca de Horchata</h3>
+              <p>Bebida refrescante de arroz, canela y vainilla.</p>
+              <p class="price">3.50€</p>
+            </div>
+          </div>
+          <!-- Bebida 2 -->
+          <div class="menu-item">
+            <img src="https://elmen.pe/wp-content/uploads/2022/10/Jugo-de-maracuya-1024x577.jpg" alt="Jugo">
+            <div class="menu-item-content">
+              <h3>Jugo de Maracuyá</h3>
+              <p>Jugo natural de maracuyá fresco, endulzado al gusto.</p>
+              <p class="price">4.00€</p>
+            </div>
+          </div>
+        </section>
+        <section id="postres" class="section">
+          <h2 class="section-title">Postres</h2>
+          <!-- Postre 1 -->
+          <div class="menu-item">
+            <img src="https://th.bing.com/th/id/OIP.2-jF7Idy1WDc132dhwymigHaF7?rs=1&pid=ImgDetMain" alt="Flan">
+            <div class="menu-item-content">
+              <h3>Flan de Caramelo</h3>
+              <p>Postre cremoso de huevo con salsa de caramelo.</p>
+              <p class="price">5.00€</p>
+            </div>
+          </div>
+          <!-- Postre 2 -->
+          <div class="menu-item">
+            <img src="https://img.freepik.com/premium-photo/food-photography-tres-leches_1077188-4178.jpg" alt="Tres Leches">
+            <div class="menu-item-content">
+              <h3>Tres Leches</h3>
+              <p>Bizcocho esponjoso bañado en tres leches, cubierto con crema batida.</p>
+              <p class="price">6.00€</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- Reservas Section -->
+  <section id="reservas" class="section reservations">
+    <div class="container">
+      <h2 class="section-title">Reserva tu Mesa</h2>
+      <div class="reservation-form">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" placeholder="Tu nombre" required>
+        </div>
+        <div class="form-group">
+          <label for="fecha">Fecha</label>
+          <input type="date" id="fecha" required>
+        </div>
+        <div class="form-group">
+          <label for="hora">Hora</label>
+          <input type="time" id="hora" required>
+        </div>
+        <div class="form-group">
+          <label for="personas">Número de Personas</label>
+          <input type="number" id="personas" min="1" required>
+        </div>
+        <button onclick="alert('Reserva enviada. Te contactaremos para confirmar.')" class="btn-primary">Enviar Reserva</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Restaurante Sabor Latino. Todos los derechos reservados.</p>
+    <p>Av. Principal 123, Ciudad, País | Tel: +123 456 7890</p>
+    <p>Síguenos en redes sociales: <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a></p>
+    <p>Diseñado por <a href="https://webslatorre.github.io/">WebsLaTorre</a></p>
+  </footer>
+C:\Users\Drago\Desktop\Programación\Diseño Web\WebsLaTorre\webslatorre.github.io\Portfolio\restaurante.html
+  <script>
+    // Smooth scrolling for navigation links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        document.querySelector(this.getAttribute('href')).scrollIntoView({
+          behavior: 'smooth'
+        });
+      });
+    });
+  </script>
+</body>
+</html>
